@@ -1,3 +1,5 @@
+import 'package:dio_training/add_user/ui/add_user_screen.dart';
+import 'package:dio_training/add_user/view_model/add_user_screen_view_model.dart';
 import 'package:dio_training/home/ui/user_grid/user_grid_builder.dart';
 import 'package:dio_training/home/view_model/home_screen_view_model.dart';
 import 'package:dio_training/search/ui/search_user_screen.dart';
@@ -25,6 +27,20 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              onTapAction(
+                context: context,
+                child: ChangeNotifierProvider(
+                  create: (_) => AddUserScreenViewModel(),
+                  child: const AddUserScreen(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.add),
+          ),
+        ],
       ),
       body: Center(
         child: Selector<HomeScreenViewModel, bool>(
@@ -37,16 +53,26 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) => ChangeNotifierProvider(
-                create: (_) => SearchUserViewModel(),
-                child: const SearchUserScreen(),
-              ),
+          onTapAction(
+            context: context,
+            child: ChangeNotifierProvider(
+              create: (_) => SearchUserViewModel(),
+              child: const SearchUserScreen(),
             ),
           );
         },
         child: const Icon(Icons.navigate_next_outlined),
+      ),
+    );
+  }
+
+  void onTapAction({
+    required BuildContext context,
+    required Widget child,
+  }) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => child,
       ),
     );
   }
