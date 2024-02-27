@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:dio_training/home/model/user_model.dart';
 import 'package:dio_training/home/web_service/home_screen_web_service.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,5 @@
 import 'package:dio_training/home/model/user_model.dart';
+import 'package:dio_training/home/ui/full_view/user_card_full_view.dart';
 import 'package:dio_training/home/view_model/home_screen_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,22 +22,30 @@ class UserGridBuilder extends StatelessWidget {
             itemBuilder: (context, index) {
               final user = users[index];
 
-              return Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusDirectional.circular(20),
-                ),
-                child: SizedBox(
-                  height: 200,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(user.avatar),
-                        radius: 35,
-                      ),
-                      const SizedBox(height: 10),
-                      Text(user.name),
-                    ],
+              return InkWell(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => UserCardFullView(user: user),
+                  );
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusDirectional.circular(20),
+                  ),
+                  child: SizedBox(
+                    height: 200,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(user.avatar),
+                          radius: 35,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(user.name),
+                      ],
+                    ),
                   ),
                 ),
               );
