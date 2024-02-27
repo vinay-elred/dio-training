@@ -1,5 +1,7 @@
 import 'package:dio_training/home/ui/user_grid/user_grid_builder.dart';
 import 'package:dio_training/home/view_model/home_screen_view_model.dart';
+import 'package:dio_training/search/ui/search_user_screen.dart';
+import 'package:dio_training/search/view_model/search_user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +34,19 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           selector: (p0, p1) => p1.loading,
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => ChangeNotifierProvider(
+                create: (_) => SearchUserViewModel(),
+                child: const SearchUserScreen(),
+              ),
+            ),
+          );
+        },
+        child: const Icon(Icons.navigate_next_outlined),
       ),
     );
   }
